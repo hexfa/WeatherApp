@@ -12,7 +12,7 @@ class WeatherRepository constructor(private val apiHelper: ApiHelper): IReposito
     }
 
     override fun get(id: Int): Flow<Weather> = flow {
-        emit(Weather(1))
+
     }
 
     override fun delete(id: Int) {
@@ -28,7 +28,7 @@ class WeatherRepository constructor(private val apiHelper: ApiHelper): IReposito
     }
 
     override fun insert(vararg weather: Weather) {
-        TODO("Not yet implemented")
+
     }
 
     fun requestToWeather() : Flow<Weather?> = flow {

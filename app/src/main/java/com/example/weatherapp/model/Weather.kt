@@ -84,16 +84,16 @@ data class HourlyUnits(
 data class Hourly(
 
 	@Json(name="pressure_msl")
-	val pressureMsl: List<Float>? = null,
+	val pressureMsl: List<Double>? = null,
 
 	@Json(name="temperature_2m")
-	val temperature2m: List<Float>? = null,
+	val temperature2m: List<Double>? = null,
 
 	@Json(name="relativehumidity_2m")
 	val relativehumidity2m: List<Int>? = null,
 
 	@Json(name="surface_pressure")
-	val surfacePressure: List<Float>? = null,
+	val surfacePressure: List<Double>? = null,
 
 	@Json(name="time")
 	val time: List<String>? = null
