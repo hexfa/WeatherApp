@@ -16,15 +16,15 @@ class WeatherRepository constructor(private val apiHelper: ApiHelper): IReposito
     }
 
     override fun delete(id: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun deleteAll() {
-        TODO("Not yet implemented")
+
     }
 
     override fun update(weather: Weather) {
-        TODO("Not yet implemented")
+
     }
 
     override fun insert(vararg weather: Weather) {

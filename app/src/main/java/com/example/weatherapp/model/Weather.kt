@@ -27,7 +27,7 @@ data class Weather(
 	val latitude: Double? = null,
 
 	@Json(name="daily")
-	val daily: Daily? = null,
+	var daily: Daily? = null,
 
 	@Json(name="utc_offset_seconds")
 	val utcOffsetSeconds: Int? = null,
