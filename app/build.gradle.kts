@@ -50,6 +50,10 @@ android {
 }
 
 dependencies {
+    val moshiVersion="2.4.0"
+
+    implementation ("com.squareup.retrofit2:converter-moshi:$moshiVersion")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
