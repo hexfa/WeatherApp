@@ -1,6 +1,8 @@
 package com.example.weatherapp.model
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
+@Entity(tableName = "Weather")
 
 data class Weather(
 	val id:Int,
