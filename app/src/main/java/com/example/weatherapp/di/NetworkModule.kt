@@ -22,7 +22,7 @@ object NetModule {
         single { provideOkHttpClient(get()) }
 
         //GENERATE RETROFIT CLIENT SINGLETON
-        single { provideRetrofit(get(), "API_BASE_URL") }
+        single { provideRetrofit(get(), "https://api.open-meteo.com/") }
 
         //GENERATE API SERVICE SINGLETON
         single { provideAppService(get()) }

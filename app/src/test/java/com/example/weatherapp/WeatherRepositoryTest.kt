@@ -24,14 +24,14 @@ class WeatherRepositoryTest {
     @Before
     fun init() {
         mockApiHelper = Mockito.mock(ApiHelper::class.java)
-        weatherRepository = WeatherRepository(mockApiHelper)
+        weatherRepository = WeatherRepository()
     }
 
     @Test
     fun InsertWeatherInDB_InsertWeather_Insert() = runBlocking {
         weatherRepository.insert(mockWeatherModel)
 
-        weatherRepository.get(mockWeatherModel.id)
+        weatherRepository.get()
             .catch {
                 it.message
             }
@@ -56,7 +56,7 @@ class WeatherRepositoryTest {
     fun UpdateWeatherInDB_UpdateWeather_Update() = runBlocking {
         var result = mockWeatherModel
 
-        weatherRepository.get(mockWeatherModel.id)
+        weatherRepository.get()
             .catch {
                 it.message
             }.collect { weather ->
@@ -67,7 +67,7 @@ class WeatherRepositoryTest {
 
         weatherRepository.update(result)
 
-        weatherRepository.get(mockWeatherModel.id)
+        weatherRepository.get()
             .catch {
                 it.message
             }.collect { weather ->
@@ -79,7 +79,7 @@ class WeatherRepositoryTest {
     fun DeleteWeatherInDB_DeleteWeather_Delete() = runBlocking {
         var result = mockWeatherModel
 
-        weatherRepository.get(mockWeatherModel.id)
+        weatherRepository.get()
             .catch {
                 it.message
             }.collect { weather ->
@@ -89,7 +89,7 @@ class WeatherRepositoryTest {
 
         weatherRepository.delete(result.id)
 
-        weatherRepository.get(mockWeatherModel.id)
+        weatherRepository.get()
             .catch {
                 it.message
             }.collect { weather ->

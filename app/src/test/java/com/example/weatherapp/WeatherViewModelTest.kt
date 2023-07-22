@@ -25,7 +25,7 @@ class WeatherViewModelTest {
     @Before
     fun init() {
         mockApiHelper = Mockito.mock(ApiHelper::class.java)
-        mockWeatherRepository = WeatherRepository(mockApiHelper)
+        mockWeatherRepository = WeatherRepository()
         weatherVm = WeatherVm(mockWeatherRepository)
     }
 
@@ -53,7 +53,7 @@ class WeatherViewModelTest {
         val resultFromServer = vm.weatherResourceState().value.data
 
         if (resultFromServer != null) {
-            Mockito.`when`(mockWeatherRepository.get(resultFromServer.id)).thenReturn(flow {
+            Mockito.`when`(mockWeatherRepository.get()).thenReturn(flow {
                 emit(
                     mockWeatherModel
                 )
@@ -61,7 +61,7 @@ class WeatherViewModelTest {
 
             vm.insertWeatherInDB(vm.weatherResourceState().value.data)
 
-            mockWeatherRepository.get(resultFromServer.id)
+            mockWeatherRepository.get()
                 .catch {
                     it.message
                 }

@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 @Entity(tableName = "Weather")
 
 data class Weather(
-	val id:Int,
+	val id:Int=1,
 
 	@Json(name="elevation")
 	val elevation: Double? = null,

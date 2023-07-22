@@ -20,8 +20,6 @@ object PersistenceModule {
         return appDatabase.weatherDao()
     }
 
-
-
     private fun provideAppDatabase(context: Context):AppDatabase{
         return Room.databaseBuilder(context.applicationContext,AppDatabase::class.java,
             context.applicationContext.getString(R.string.app_database_name)).build()

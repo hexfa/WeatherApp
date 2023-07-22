@@ -16,7 +16,7 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
     private val weatherResourceState = ResourceState(weatherResource)
 
     fun requestToWeather() {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             weatherRepository.requestToWeather().catch {
                 weatherResource = Resource.error(it.message)
                 weatherResourceState.value = weatherResource
