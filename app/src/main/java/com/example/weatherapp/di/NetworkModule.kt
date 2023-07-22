@@ -1,16 +1,20 @@
-package com.example.weatherapp.di/*
- * *
- *  * Created by Kevin Gitonga on 5/5/20 1:15 PM
- *  * Copyright (c) 2020 . All rights reserved.
- *  * Last modified 5/5/20 12:34 PM
- *
- */
+package com.example.weatherapp.di
 
 
+
+import android.content.Context
+import com.example.weatherapp.network.ApiHelper
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.Cache
+import okhttp3.OkHttpClient
+import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object NetModule {
 
-   /* val networkModule = module {
+    val networkModule = module {
         //GENERATE CACHE SINGLETON
         single { provideCache(get()) }
 
@@ -18,16 +22,15 @@ object NetModule {
         single { provideOkHttpClient(get()) }
 
         //GENERATE RETROFIT CLIENT SINGLETON
-        single { provideRetrofit(get(), BuildConfig.API_BASE_URL) }
+        single { provideRetrofit(get(), "API_BASE_URL") }
 
         //GENERATE API SERVICE SINGLETON
         single { provideAppService(get()) }
-    }*/
+    }
 
 
-    /*private fun provideOkHttpClient(cache: Cache): OkHttpClient {
-        val logger = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY }
+    private fun provideOkHttpClient(cache: Cache): OkHttpClient {
+
 
         return OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -37,14 +40,12 @@ object NetModule {
             .addInterceptor{
                     chain ->
                 val newRequest = chain.request().newBuilder()
-                    .header("X-API-Key", BuildConfig.NEWS_API_KEY)
                 chain.proceed(newRequest.build())
             }
-            .addInterceptor(logger)
             .build()
-    }*/
+    }
 
-  /*  private fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
+    private fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
@@ -59,6 +60,6 @@ object NetModule {
     }
 
 
-    private fun provideAppService(retrofit: Retrofit): ApiService =
-        retrofit.create(ApiService::class.java)*/
+    private fun provideAppService(retrofit: Retrofit): ApiHelper =
+        retrofit.create(ApiHelper::class.java)
 }
