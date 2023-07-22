@@ -58,6 +58,16 @@ dependencies {
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     testImplementation ("org.mockito:mockito-core:5.3.1")
 
+    implementation("io.insert-koin:koin-android:3.4.2")
+    //MultiDex
+    implementation("androidx.multidex:multidex:2.0.1")
+   // implementation("io.insert-koin:koin-androidx-viewmodel:3.1.3")
+
+//KOIN DI
+/*    implementation("org.koin:koin-android:3.4.2")
+    implementation("org.koin:koin-android-scope:3.4.2")
+    implementation("org.koin:koin-android-viewmodel:3.4.2")*/
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.5.1")
@@ -73,4 +83,12 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+
+
 }
