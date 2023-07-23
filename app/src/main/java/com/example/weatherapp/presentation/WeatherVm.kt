@@ -1,5 +1,6 @@
 package com.example.weatherapp.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.data.WeatherRepository
@@ -16,14 +17,21 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
     private val weatherResourceState = ResourceState(weatherResource)
 
     fun requestToWeather() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             weatherRepository.requestToWeather().catch {
-                weatherResource = Resource.error(it.message)
+                Log.d("responsedd",it.toString())
+               weatherResource = Resource(State.ERROR,it.message.orEmpty(),null)
+                Resource.error<Throwable>(it.message)
                 weatherResourceState.value = weatherResource
             }.collect { weather ->
+                Log.d("responsedd","weather.toString()")
+
                 weatherResource = if (weather == null) {
+                    weatherResource = Resource(State.ERROR,"An error accrued",null)
+
                     Resource.error("An error accrued")
                 } else {
+                    weatherResource = Resource(State.SUCCESS,"success",weather)
                     Resource.success(weather)
                 }
                 weatherResourceState.value = weatherResource

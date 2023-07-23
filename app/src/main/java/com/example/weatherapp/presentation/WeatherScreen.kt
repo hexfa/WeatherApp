@@ -14,7 +14,7 @@ fun WeatherScreen(vm: WeatherVm) {
         }
         State.SUCCESS->{
             val weather=resource.data
-            Text(text = "elevation : ${weather?.elevation}")
+            Text(text = "elevation : ${weather?.toString()}")
             vm.insertWeatherInDB(weather)
         }
         State.ERROR->{

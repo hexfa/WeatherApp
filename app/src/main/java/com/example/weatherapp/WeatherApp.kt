@@ -1,11 +1,13 @@
 package com.example.weatherapp
 
+import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.example.weatherapp.di.NetModule
 import com.example.weatherapp.di.PersistenceModule
 import com.example.weatherapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class WeatherApp : MultiDexApplication(){
 
@@ -15,6 +17,7 @@ class WeatherApp : MultiDexApplication(){
 
     }
     private fun initKoinDi() {
+
         startKoin {
             androidContext(this@WeatherApp)
             modules(NetModule.networkModule)

@@ -27,7 +27,7 @@ class WeatherRepository : IRepository<Weather>,KoinComponent {
     override suspend fun insert(weather: Weather) = weatherDao.insertWeatherItem(weather)
 
     fun requestToWeather() : Flow<Weather?> = flow {
-        emit(apiHelper.requestToWeather(createQueryMap()))
+        emit(apiHelper.requestToWeather())
     }
 
     private fun createQueryMap(): Map<String, String> {

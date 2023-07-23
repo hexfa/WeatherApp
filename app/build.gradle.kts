@@ -63,6 +63,8 @@ dependencies {
     testImplementation ("org.mockito:mockito-core:5.3.1")
 
     implementation("io.insert-koin:koin-android:3.4.2")
+    //("org.koin:koin-android-scope:3.1.2")
+
     //MultiDex
     implementation("androidx.multidex:multidex:2.0.1")
    // implementation("io.insert-koin:koin-androidx-viewmodel:3.1.3")
@@ -98,4 +100,6 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
 
+    //location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }
