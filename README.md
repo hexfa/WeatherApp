@@ -51,10 +51,8 @@ The Weather App is built using the following tools and libraries:
 ## Preview 📱
 
 ### Screenshots 🖼️
+<img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" height="649" width="300" alt="Inpost App hexfa">  
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" alt="Rick and Morty App hexfa" style="max-width: 100%; height: auto;">
-</div>
 ## Build 🛠️
 
 To build the Weather App, follow these steps:
