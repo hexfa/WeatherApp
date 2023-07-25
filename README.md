@@ -1,7 +1,4 @@
 # Weather App
-
-![Weather App](weather_app_banner.png)
-
 ## Details 📜
 
 This Weather App is a user-friendly Android application built using Kotlin that allows users to access real-time weather information for their current location. The app fetches weather data from an external API based on the user's latitude and longitude and presents essential weather details such as temperature, weather conditions, humidity, wind speed, and more. It follows the MVVM (Model-View-ViewModel) architecture to ensure a well-organized and maintainable codebase. The app leverages several powerful libraries like Retrofit, Glide, Kotlin Coroutines, Room, and Koin Dependency Injection to enhance its functionality and performance.
