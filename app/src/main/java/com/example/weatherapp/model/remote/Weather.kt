@@ -1,16 +1,17 @@
 package com.example.weatherapp.model.remote
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 @Entity(tableName = "Weather")
 
 data class Weather(
+	@PrimaryKey(autoGenerate = true)
+	var id:Int?=null,
 	@Json(name="daily")
 	var daily: Daily? = null,
 	@field:Json(name = "hourly")
 	val hourly: Hourly? = null,
-
-
 	)
 data class Daily(
 

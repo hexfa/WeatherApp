@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     single {WeatherRepository()}
-    //single<Context> { androidContext() }
+    single<Context> { androidContext() }
 
     viewModel {
         WeatherVm(get())

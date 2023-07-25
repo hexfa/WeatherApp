@@ -27,16 +27,16 @@ class WeatherRepository : IRepository<Weather>,KoinComponent {
 
     override suspend fun insert(weather: Weather) = weatherDao.insertWeatherItem(weather)
 
-    fun requestToWeather() : Flow<Response<Weather?>> = flow {
-        emit(apiHelper.requestToWeather())
+    fun requestToWeather(lat:String,long:String) : Flow<Response<Weather?>> = flow {
+        emit(apiHelper.requestToWeather(createQueryMap(lat , long)))
     }
 
     private fun createQueryMap(lat:String,long:String): Map<String, String> {
         val queryMap= mutableMapOf<String,String>()
 
         return queryMap.apply {
-            this["latitude"]="52.52"
-            this["longitude"]="13.41"
+            this["latitude"]=lat
+            this["longitude"]=long
             this["hourly"]="temperature_2m,relativehumidity_2m,pressure_msl,surface_pressure"
             this["daily"]="sunrise,sunset"
             this["timezone"]="GMT"

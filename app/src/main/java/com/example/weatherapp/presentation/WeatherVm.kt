@@ -33,7 +33,7 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
                 isLoading = true,
                 error = null
             )
-            weatherRepository.requestToWeather().catch {
+            weatherRepository.requestToWeather("52.52","13.41").catch {
                 Log.d("responsedd",it.toString())
                weatherResource = Resource(State.ERROR,it.message.orEmpty(),null)
                 Resource.error<Throwable>(it.message)
@@ -66,8 +66,8 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
 
     fun insertWeatherInDB(weather: Weather?) {
         viewModelScope.launch(Dispatchers.IO) {
-            /*if (weather != null)
-                weatherRepository.insert(weather)*/
+            if (weather != null)
+                weatherRepository.insert(weather)
         }
     }
 
