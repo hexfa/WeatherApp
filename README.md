@@ -5,7 +5,8 @@ information for their current location. The app fetches weather data from an ext
 based on the user's latitude and longitude and displays the temperature, weather conditions,
 and other related details.
 
-![Weather App Screenshot](https://github.com/hexfa/WeatherApp/blob/master/photo.jpg)
+<img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" alt="Weather App Screenshot" width="400" height="300">
+
 # Features:
 
 Get Current Weather: The app uses the device's location services to determine the user's 
