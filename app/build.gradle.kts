@@ -101,5 +101,6 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.2")
 
     //location
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("com.google.android.gms:play-services-location:18.0.0")
+
 }

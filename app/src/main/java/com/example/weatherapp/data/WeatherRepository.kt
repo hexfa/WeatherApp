@@ -30,7 +30,7 @@ class WeatherRepository : IRepository<Weather>,KoinComponent {
         emit(apiHelper.requestToWeather())
     }
 
-    private fun createQueryMap(): Map<String, String> {
+    private fun createQueryMap(lat:String,long:String): Map<String, String> {
         val queryMap= mutableMapOf<String,String>()
 
         return queryMap.apply {
