@@ -1,3 +1,4 @@
+/*
 package com.example.weatherapp.model
 
  val mockWeatherModel = Weather(1,38.0,
@@ -870,3 +871,4 @@ package com.example.weatherapp.model
         "2023-07-26T22:00",
         "2023-07-26T23:00")),13.419998
 )
+*/

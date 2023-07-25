@@ -1,12 +1,13 @@
 package com.example.weatherapp.data
 
 import com.example.weatherapp.data.local.WeatherDao
-import com.example.weatherapp.model.Weather
+import com.example.weatherapp.model.remote.Weather
 import com.example.weatherapp.network.ApiHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import retrofit2.Response
 
 class WeatherRepository : IRepository<Weather>,KoinComponent {
     private val apiHelper: ApiHelper by inject()
@@ -26,7 +27,7 @@ class WeatherRepository : IRepository<Weather>,KoinComponent {
 
     override suspend fun insert(weather: Weather) = weatherDao.insertWeatherItem(weather)
 
-    fun requestToWeather() : Flow<Weather?> = flow {
+    fun requestToWeather() : Flow<Response<Weather?>> = flow {
         emit(apiHelper.requestToWeather())
     }
 

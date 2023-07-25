@@ -52,10 +52,7 @@ object NetModule {
         val moshi=Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
             .build()
     }
 

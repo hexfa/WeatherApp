@@ -28,8 +28,8 @@ fun WeatherScreen(vm: WeatherVm) {
     coroutineScope.launch{
         val currentLocation = withContext(Dispatchers.IO) {
             // Call the suspend function getCurrentLocation using withContext to switch to IO Dispatcher
-            val latitude = locationTask.getCurrentLocation()!!.latitude
-            val longitude = locationTask.getCurrentLocation()!!.longitude
+            val latitude = locationTask.getCurrentLocation()?.latitude
+            val longitude = locationTask.getCurrentLocation()?.longitude
         }
     }
 
