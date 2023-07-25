@@ -11,7 +11,7 @@ This Weather App is a user-friendly Android application built using Kotlin that 
 - [Preview](#preview-)
 - [Build](#build-)
 
-## Features 🚀
+## Features  🚀
 
 - **Get Current Weather:** The app utilizes the device's location services to determine the user's current location and fetches real-time weather data from a weather API. This ensures that users receive accurate weather updates for their specific location.
 
@@ -19,7 +19,7 @@ This Weather App is a user-friendly Android application built using Kotlin that 
 
 - **Responsive UI:** The app's user interface is designed to be responsive and adaptive, ensuring a seamless user experience across different screen sizes and orientations. Users can comfortably use the app on various Android devices.
 
-## App Architecture 🏗️
+## App Architecture  🏗️
 
 The Weather App follows the MVVM (Model-View-ViewModel) architecture, which facilitates a clear separation of concerns and promotes code organization. The key components of this architecture are:
 
@@ -29,7 +29,7 @@ The Weather App follows the MVVM (Model-View-ViewModel) architecture, which faci
 
 - **ViewModel:** Acts as an intermediary between the Model and the View. It holds the app's state, processes user interactions, and communicates with the Model to fetch data and update the View.
 
-## Libraries Used 🛠️
+## Libraries Used  🛠️
 
 The Weather App is built using the following tools and libraries:
 
@@ -48,12 +48,12 @@ The Weather App is built using the following tools and libraries:
 - **Fused Location Provider Client:** The Fused Location Provider Client is used to access the device's location services and retrieve the user's latitude and longitude. This enables the app to fetch weather data specific to the user's current location.
 
 - **Android Support Libraries:** The app uses various Android Support Libraries to enhance its functionality, compatibility, and user interface design.
-## Preview 📱
+## Preview  📱
 
-### Screenshots 🖼️
+### Screenshots  🖼️
 <img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" height="649" width="300" alt="Inpost App hexfa">  
 
-## Build 🛠️
+## Build  🛠️
 
 To build the Weather App, follow these steps:
 
