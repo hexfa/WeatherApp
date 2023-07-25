@@ -5,7 +5,7 @@ information for their current location. The app fetches weather data from an ext
 based on the user's latitude and longitude and displays the temperature, weather conditions,
 and other related details.
 
-<img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" alt="Weather App Screenshot" width="400" height="300">
+<img src="https://github.com/hexfa/WeatherApp/blob/master/photo.jpg" alt="Weather App Screenshot" width="300" height="300">
 
 # Features:
 
@@ -29,7 +29,8 @@ experience on different screen sizes.
 - [**Kotlin Coroutines**](https://github.com/Kotlin/kotlinx.coroutines) for retrofit.
 - [**Room**](https://developer.android.com/topic/libraries/architecture/room) for persistence.
 - [**Koin Dependency Injection**](https://github.com/InsertKoinIO/koin) for dependency injection.
-- [**Fused Location Provider Client**] To access the device's location services and get the user's latitude and longitude
+- [**Fused Location Provider Client**](https://developer.android.com/training/location/retrieve-current) 
+- To access the device's location services and get the user's latitude and longitude
 - **Android Support Libraries**
 
 ## Build
