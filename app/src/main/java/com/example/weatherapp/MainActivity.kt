@@ -26,12 +26,14 @@ import com.example.weatherapp.ui.theme.DarkBlue
 import com.example.weatherapp.ui.theme.LightBlue
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "MainActivity"
 
 
 class MainActivity : ComponentActivity() {
-    private val vm: WeatherVm by inject()
+    //private val vm: WeatherVm by inject()
+    private val vm: WeatherVm by viewModel()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {

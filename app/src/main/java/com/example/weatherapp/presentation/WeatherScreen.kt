@@ -1,37 +1,38 @@
 package com.example.weatherapp.presentation
 
 import android.annotation.SuppressLint
-import androidx.activity.ComponentActivity
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import com.example.weatherapp.utils.State
-import com.example.weatherapp.utils.location.LocationFinderImp
-import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("CoroutineCreationDuringComposition", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WeatherScreen(vm: WeatherVm) {
-    val resource=vm.weatherResourceState().value
-    val activity = LocalContext.current as ComponentActivity
+    val resource = vm.weatherResourceState().value
+    val isRefreshing = remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
 
-
-    when(resource.state){
-        State.LOADING->{
+    when (resource.state) {
+        State.LOADING -> {
             Text(text = "Loading...")
         }
-        State.SUCCESS->{
-            val weather=resource.data
+
+        State.SUCCESS -> {
+            val weather = resource.data
             Text(text = "elevation : ${weather?.toString()}")
             vm.insertWeatherInDB(weather)
         }
-        State.ERROR->{
+
+        State.ERROR -> {
             Text(text = "${resource.msg}")
         }
     }
