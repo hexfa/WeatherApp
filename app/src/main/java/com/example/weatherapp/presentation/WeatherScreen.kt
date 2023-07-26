@@ -20,18 +20,7 @@ fun WeatherScreen(vm: WeatherVm) {
     val resource=vm.weatherResourceState().value
     val activity = LocalContext.current as ComponentActivity
 
-    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
-    val locationTask = LocationFinderImp(activity.applicationContext,fusedLocationClient)
 
-
-    val coroutineScope = CoroutineScope(Dispatchers.Main)
-    coroutineScope.launch{
-        val currentLocation = withContext(Dispatchers.IO) {
-            // Call the suspend function getCurrentLocation using withContext to switch to IO Dispatcher
-            val latitude = locationTask.getCurrentLocation()?.latitude
-            val longitude = locationTask.getCurrentLocation()?.longitude
-        }
-    }
 
     when(resource.state){
         State.LOADING->{

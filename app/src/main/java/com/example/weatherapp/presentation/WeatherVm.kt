@@ -15,11 +15,13 @@ import com.example.weatherapp.ui.WeatherState
 import com.example.weatherapp.utils.Resource
 import com.example.weatherapp.utils.ResourceState
 import com.example.weatherapp.utils.State
+import com.example.weatherapp.utils.location.LocationFinder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class WeatherVm constructor(private val weatherRepository: WeatherRepository) : ViewModel() {
+class WeatherVm constructor(private val weatherRepository: WeatherRepository,
+                            private val locationFinder: LocationFinder) : ViewModel() {
     private var weatherResource = Resource<Weather>(State.LOADING, null, null)
     private val weatherResourceState = ResourceState(weatherResource)
     var state by mutableStateOf(WeatherState())
@@ -27,13 +29,55 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun requestToWeather() {
+    fun requestToWeather(){
+        viewModelScope.launch {
+
+            state = state.copy(
+                isLoading = true,
+                error = null
+            )
+
+            locationFinder.getCurrentLocation()?.let {location->
+                weatherRepository.
+                requestToWeather(location.latitude,location.longitude).catch {
+                    Log.d("responsedd",it.toString())
+                    weatherResource = Resource(State.ERROR,it.message.orEmpty(),null)
+                    Resource.error<Throwable>(it.message)
+                    weatherResourceState.value = weatherResource
+                    state = state.copy(
+                        weatherInfo = null,
+                        isLoading = false,
+                        error = it.message
+                    )
+                }.collect { weather ->
+                    Log.d("responsedd","weather.toString()")
+
+                    weatherResource = if (weather == null) {
+                        weatherResource = Resource(State.ERROR,"An error accrued",null)
+
+                        Resource.error("An error accrued")
+                    } else {
+                        state = state.copy(
+                            weatherInfo = weather.body()?.toWeatherInfo(),
+                            isLoading = false,
+                            error = null
+                        )
+                        weatherResource = Resource(State.SUCCESS,"success",weather.body())
+                        Resource.success(weather.body())
+                    }
+                    weatherResourceState.value = weatherResource
+                }
+            }
+        }
+    }
+    /*@RequiresApi(Build.VERSION_CODES.O)
+    fun requestToWeather(lat:Double,long:Double) {
         viewModelScope.launch(Dispatchers.IO) {
             state = state.copy(
                 isLoading = true,
                 error = null
             )
-            weatherRepository.requestToWeather().catch {
+            weatherRepository.requestToWeather(lat, long).catch {
                 Log.d("responsedd",it.toString())
                weatherResource = Resource(State.ERROR,it.message.orEmpty(),null)
                 Resource.error<Throwable>(it.message)
@@ -62,7 +106,7 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository) : 
                 weatherResourceState.value = weatherResource
             }
         }
-    }
+    }*/
 
     fun insertWeatherInDB(weather: Weather?) {
         viewModelScope.launch(Dispatchers.IO) {

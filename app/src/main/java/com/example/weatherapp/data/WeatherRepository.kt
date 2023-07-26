@@ -3,6 +3,7 @@ package com.example.weatherapp.data
 import com.example.weatherapp.data.local.WeatherDao
 import com.example.weatherapp.model.remote.Weather
 import com.example.weatherapp.network.ApiHelper
+import com.example.weatherapp.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.koin.core.component.KoinComponent
@@ -27,9 +28,23 @@ class WeatherRepository : IRepository<Weather>,KoinComponent {
 
     override suspend fun insert(weather: Weather) = weatherDao.insertWeatherItem(weather)
 
-    fun requestToWeather() : Flow<Response<Weather?>> = flow {
-        emit(apiHelper.requestToWeather())
+    fun requestToWeather(lat: Double, long: Double) : Flow<Response<Weather?>> = flow {
+        emit(apiHelper.requestToWeather(lat, long))
     }
+
+   /* suspend fun requestToWeather(lat: Double, long: Double): Resource<Weather?> {
+        return try {
+            Resource.success(
+                data = api.getWeatherData(
+                    lat = lat,
+                    long = long
+                ).toWeatherInfo()
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(e.message ?: "An unknown error occurred.")
+        }
+    }*/
 
     private fun createQueryMap(lat:String,long:String): Map<String, String> {
         val queryMap= mutableMapOf<String,String>()

@@ -27,11 +27,15 @@ import com.example.weatherapp.ui.theme.LightBlue
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import org.koin.android.ext.android.inject
 
+private const val TAG = "MainActivity"
+
 class MainActivity : ComponentActivity() {
-    private val vm:WeatherVm by inject()
+    private val vm: WeatherVm by inject()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         vm.requestToWeather()
         setContent {
             WeatherAppTheme {
@@ -39,7 +43,8 @@ class MainActivity : ComponentActivity() {
 
 
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .background(brush = Brush.verticalGradient(colors))
 
                 ) {
@@ -53,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.height(16.dp))
                         WeatherForecast(state = vm.state)
                     }
-                    if(vm.state.isLoading) {
+                    if (vm.state.isLoading) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center)
                         )
