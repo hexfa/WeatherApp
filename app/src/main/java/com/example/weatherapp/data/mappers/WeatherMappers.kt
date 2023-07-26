@@ -26,8 +26,8 @@ private data class IndexedWeatherDataHourly(
 fun Hourly.toWeatherDataMap(): Map<Int, List<WeatherDataHourly>> ?{
     return time?.mapIndexed { index, time ->
         val temperature = temperatures?.get(index)
-        val weatherCode = weatherCodes[index]
-        val windSpeed = windSpeeds[index]
+        val weatherCode = weatherCodes?.get(index)
+        val windSpeed = windSpeeds?.get(index)
         val pressure = pressureMsl?.get(index)
         val humidity = relativehumidity2m?.get(index)
         IndexedWeatherDataHourly(
@@ -38,7 +38,7 @@ fun Hourly.toWeatherDataMap(): Map<Int, List<WeatherDataHourly>> ?{
                 pressure = pressure,
                 windSpeed = windSpeed,
                 humidity = humidity,
-                weatherType = WeatherType.fromWMO(weatherCode),
+                weatherType = weatherCode?.let { WeatherType.fromWMO(it) },
             )
         )
     }?.groupBy {

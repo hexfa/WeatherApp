@@ -58,8 +58,7 @@ fun HourlyWeatherDisplay(
                 color = Color.LightGray,
                 fontFamily = FontFamily(Font(R.font.safont)),
                 )
-            Image(
-                painter = painterResource(id = weatherData.weatherType!!.iconRes),
+            Image(painter = painterResource(id = weatherData.weatherType?.iconRes?:R.drawable.ic_heavysnow),
                 contentDescription = null,
                 modifier = Modifier.width(60.dp)
             )

@@ -1,9 +1,12 @@
 package com.example.weatherapp
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,17 +37,23 @@ private const val TAG = "MainActivity"
 class MainActivity : ComponentActivity() {
     //private val vm: WeatherVm by inject()
     private val vm: WeatherVm by viewModel()
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        vm.requestToWeather()
+        permissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+            vm.requestToWeather()
+        }
+        permissionLauncher.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+        ))
         setContent {
             WeatherAppTheme {
                 val colors = listOf(Color.White, LightBlue, DarkBlue)
-
-
                 Box(
                     modifier = Modifier
                         .fillMaxSize()

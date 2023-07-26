@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.theme.DarkBlue
 import com.example.weatherapp.R
 import com.example.weatherapp.data.mappers.IndexedWeatherDataDaily
+import com.example.weatherapp.model.local.WeatherDataDaily
+import java.time.LocalDateTime
 
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
@@ -34,7 +36,9 @@ fun WeatherTotal(
 ) {
     state.weatherInfo?.currentWeatherData?.let { data ->
         state.weatherInfo.weatherDateDaily.let {
-            var today: IndexedWeatherDataDaily = it!![0]
+            var today: IndexedWeatherDataDaily = it?.get(0) ?: IndexedWeatherDataDaily(1,
+                WeatherDataDaily(LocalDateTime.MAX, LocalDateTime.MIN)
+            )
 
                 Column(
                     modifier = Modifier
@@ -57,7 +61,7 @@ fun WeatherTotal(
                             fontFamily = FontFamily(Font(R.font.safont))
                         )
                         Image(
-                            painter = painterResource(id = data.weatherType!!.iconRes),
+                            painter = painterResource(id = data.weatherType?.iconRes?:R.drawable.cloudy_day_1),
                             contentDescription = null,
                             modifier = Modifier.fillMaxWidth().height(300.dp)
                         )
@@ -73,7 +77,7 @@ fun WeatherTotal(
 
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = data.weatherType!!.weatherDesc,
+                        text = data.weatherType?.weatherDesc?:"There is some problem.",
                         fontSize = 20.sp,
                         color = Color.White,
                         fontFamily = FontFamily(Font(R.font.safont))
@@ -84,21 +88,21 @@ fun WeatherTotal(
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         WeatherDataDisplay(
-                            value = data.pressure!!.roundToInt(),
+                            value = data.pressure?.roundToInt()?:1,
                             unit = "hpa",
                             icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
                             iconTint = Color.White,
                             textStyle = TextStyle(color = Color.White)
                         )
                         WeatherDataDisplay(
-                            value = data.humidity!!,
+                            value = data.humidity?:1,
                             unit = "%",
                             icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
                             iconTint = Color.White,
                             textStyle = TextStyle(color = Color.White)
                         )
                         WeatherDataDisplay(
-                            value = data.windSpeed!!.roundToInt(),
+                            value = data.windSpeed?.roundToInt()?:1,
                             unit = "km/h",
                             icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
                             iconTint = Color.White,

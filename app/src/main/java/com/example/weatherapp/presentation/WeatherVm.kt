@@ -1,11 +1,13 @@
 package com.example.weatherapp.presentation
 
+import android.app.Application
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.data.WeatherRepository
@@ -16,12 +18,14 @@ import com.example.weatherapp.utils.Resource
 import com.example.weatherapp.utils.ResourceState
 import com.example.weatherapp.utils.State
 import com.example.weatherapp.utils.location.LocationFinder
+import com.example.weatherapp.utils.location.LocationFinderImp
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class WeatherVm constructor(private val weatherRepository: WeatherRepository,
-                            private val locationFinder: LocationFinder) : ViewModel() {
+class WeatherVm constructor(private val weatherRepository: WeatherRepository,private val app:Application) : AndroidViewModel(app) {
+    private val locationFinder: LocationFinder= LocationFinderImp(app,LocationServices.getFusedLocationProviderClient(app))
     private var weatherResource = Resource<Weather>(State.LOADING, null, null)
     private val weatherResourceState = ResourceState(weatherResource)
     var state by mutableStateOf(WeatherState())
