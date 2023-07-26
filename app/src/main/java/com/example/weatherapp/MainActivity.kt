@@ -29,6 +29,7 @@ import org.koin.android.ext.android.inject
 
 private const val TAG = "MainActivity"
 
+
 class MainActivity : ComponentActivity() {
     private val vm: WeatherVm by inject()
 
