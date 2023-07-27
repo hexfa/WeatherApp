@@ -1,11 +1,14 @@
 package com.example.weatherapp
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
@@ -32,40 +35,44 @@ import com.example.weatherapp.ui.theme.DarkBlue
 import com.example.weatherapp.ui.theme.LightBlue
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
     private val vm: WeatherVm by viewModel()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+
     @RequiresApi(Build.VERSION_CODES.O)
     private val enableLocationActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (checkLocationPermissions()) {
-                // Location permissions granted, request weather data
+            Log.d("resultCode", it.data.toString())
+            if (checkLocationPermissions())
                 vm.requestToWeather()
-            } else {
-                // Handle the case where the user denied the location permissions
-                // For example, you can show an error message or take appropriate actions
-            }
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if (!isGpsEnabled) {
+                enableLocation()
+        }
+        Log.d("resultCode", "it.data.toString()")
+
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true &&
                 permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
             ) {
-                // Location permissions granted, request weather data
                 vm.requestToWeather()
-            } else {
-                // Location permissions not granted, try to enable location
-                enableLocation()
             }
         }
+
         permissionLauncher.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -110,7 +117,8 @@ class MainActivity : ComponentActivity() {
 
     private fun checkLocationPermissions(): Boolean {
         val fineLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-        val coarseLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        val coarseLocationPermission =
+            checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         return fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 coarseLocationPermission == PackageManager.PERMISSION_GRANTED
     }

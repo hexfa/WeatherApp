@@ -22,9 +22,11 @@ import com.example.weatherapp.ui.theme.DarkBlue
 import com.example.weatherapp.R
 import com.example.weatherapp.data.mappers.IndexedWeatherDataDaily
 import com.example.weatherapp.model.local.WeatherDataDaily
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import kotlin.math.roundToInt
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -34,6 +36,9 @@ fun WeatherTotal(
     state: WeatherState,
 
 ) {
+    var c: Calendar = Calendar.getInstance()
+    var sdf: SimpleDateFormat = SimpleDateFormat("MMM dd, yyyy HH:mm:ss a")
+    var strDate: String = sdf.format(c.getTime())
     state.weatherInfo?.currentWeatherData?.let { data ->
         state.weatherInfo.weatherDateDaily.let {
             var today: IndexedWeatherDataDaily = it?.get(0) ?: IndexedWeatherDataDaily(1,
@@ -51,11 +56,7 @@ fun WeatherTotal(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Today ${
-                                data.time?.format(
-                                    DateTimeFormatter.ofPattern("HH:mm")
-                                )
-                            }",
+                            text = "$strDate",
                             modifier = Modifier.align(Alignment.TopStart),
                             color = DarkBlue,
                             fontFamily = FontFamily(Font(R.font.safont))
