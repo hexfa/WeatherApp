@@ -60,10 +60,17 @@ To build the Weather App, follow these steps:
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/hexfa/WeatherApp
+git clone https://github.com/hexfa/WeatherApp.git
 ```
 
 2. Open the project in Android Studio.
 
 3. Build and run the application on an Android device or emulator.
 
+## Note ⚠️
+If you see the below error:
+```bash
+No matching variant of com.android.tools.build:gradle:X.X.X was found
+```
+please ended up changing Gradle setting to Java 17 or more with this way:
+- **File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle**
