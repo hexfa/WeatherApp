@@ -44,7 +44,7 @@ class WeatherVm constructor(private val weatherRepository: WeatherRepository,pri
             locationFinder.getCurrentLocation()?.let {location->
                 weatherRepository.
                 requestToWeather(location.latitude,location.longitude).catch {
-                    Log.d("responsedd",it.toString())
+                    Log.d("responsedd", location.latitude.toString())
                     weatherResource = Resource(State.ERROR,it.message.orEmpty(),null)
                     Resource.error<Throwable>(it.message)
                     weatherResourceState.value = weatherResource
