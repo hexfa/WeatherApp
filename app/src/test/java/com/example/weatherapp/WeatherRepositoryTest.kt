@@ -1,9 +1,9 @@
 package com.example.weatherapp
 
 import com.example.weatherapp.data.WeatherRepository
-import com.example.weatherapp.model.mockWeatherModel
+import com.example.weatherapp.model.remote.mockQueryMap
+import com.example.weatherapp.model.remote.mockWeatherModel
 import com.example.weatherapp.network.ApiHelper
-import com.example.weatherapp.presentation.WeatherVm
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -13,6 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import retrofit2.Response
 
 class WeatherRepositoryTest {
     @get:Rule
@@ -42,9 +43,9 @@ class WeatherRepositoryTest {
 
     @Test
     fun GetWeatherFromApi_GetWeather_Weather() = runBlocking {
-        Mockito.`when`(mockApiHelper.requestToWeather()).thenReturn(mockWeatherModel)
+        Mockito.`when`(mockApiHelper.requestToWeather(52.52,13.41)).thenReturn( Response.success(mockWeatherModel))
 
-        weatherRepository.requestToWeather().catch {
+        weatherRepository.requestToWeather(52.52,13.41).catch {
 
         }.collect { weather ->
             Assert.assertNotNull(weather)
@@ -87,7 +88,7 @@ class WeatherRepositoryTest {
                 cancel()
             }
 
-        weatherRepository.delete(result.id)
+        weatherRepository.delete(1)
 
         weatherRepository.get()
             .catch {
@@ -96,4 +97,5 @@ class WeatherRepositoryTest {
                 Assert.assertNull(weather)
             }
     }
+
 }

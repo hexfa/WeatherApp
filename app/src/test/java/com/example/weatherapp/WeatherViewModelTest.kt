@@ -1,7 +1,7 @@
 package com.example.weatherapp
 
 import com.example.weatherapp.data.WeatherRepository
-import com.example.weatherapp.model.mockWeatherModel
+import com.example.weatherapp.model.remote.mockWeatherModel
 import com.example.weatherapp.network.ApiHelper
 import com.example.weatherapp.presentation.WeatherVm
 import kotlinx.coroutines.flow.catch
@@ -12,6 +12,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import retrofit2.Response
 
 class WeatherViewModelTest {
 
@@ -26,14 +27,16 @@ class WeatherViewModelTest {
     fun init() {
         mockApiHelper = Mockito.mock(ApiHelper::class.java)
         mockWeatherRepository = WeatherRepository()
-        weatherVm = WeatherVm(mockWeatherRepository)
+        weatherVm = WeatherVm(mockWeatherRepository,WeatherApp())
     }
 
     @Test
     fun GetWeatherFromApi_RequestWeather_Weather() {
         runBlocking {
-            val vm = WeatherVm(mockWeatherRepository)
-            Mockito.`when`(mockApiHelper.requestToWeather()).thenReturn(mockWeatherModel)
+            val vm = WeatherVm(mockWeatherRepository,WeatherApp())
+            Mockito.`when`(mockApiHelper.requestToWeather(52.52,13.42)).thenReturn(
+                Response.success(mockWeatherModel)
+            )
 
             vm.requestToWeather()
 
@@ -45,8 +48,8 @@ class WeatherViewModelTest {
 
     @Test
     fun InsertWeatherInDB_InsertWeather_Insert() = runBlocking {
-        val vm = WeatherVm(mockWeatherRepository)
-        Mockito.`when`(mockApiHelper.requestToWeather()).thenReturn(mockWeatherModel)
+        val vm = WeatherVm(mockWeatherRepository,WeatherApp())
+        Mockito.`when`(mockApiHelper.requestToWeather(52.52,13.41)).thenReturn( Response.success(mockWeatherModel))
 
         vm.requestToWeather()
 
