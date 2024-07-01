@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.weatherapp"
+    namespace = "com.hexfa.weatherapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.weatherapp"
+        applicationId = "com.hexfa.weatherapp"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
